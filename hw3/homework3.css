@@ -9,6 +9,7 @@ h1 {
 	text-align: center;
 	font-weight: bold;
 	color: white;
+	font-family: 'Homemade Apple';
 }
 
 h2 {
@@ -78,6 +79,22 @@ th, td {
   color: black;
   text-align: center;
   padding: 5px;
+}
+
+#nav-ul {
+	white-space: nowrap;
+}
+
+#nav-li {
+	display: inline;
+	font-size: 20px;
+}
+
+#nav-bg {
+	background-color: rgba(255, 99, 71, 0.3);
+	padding: 5px;
+	border-style: solid;
+	border-color: white;
 }
 
 
