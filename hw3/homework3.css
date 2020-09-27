@@ -2,6 +2,7 @@ body {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background-image: url('chalkboard.png');
 	color: white;
+	margin-bottom: 100px;
 }
 
 h1 {
@@ -16,8 +17,14 @@ h2 {
 	color: white;
 }
 
-a:visited {
+a:link {
 	color: white;
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: LightGray;
 	background-color: transparent;
 	text-decoration: underline;
 }
@@ -25,3 +32,52 @@ a:visited {
 a:hover {
 	color: Gray;
 }
+
+ul {
+	list-style-type: none;
+	text-align: center;
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th, td {
+	padding: 15px;
+}
+
+.button {
+	background-color: Gray;
+	padding: 10px 16px;
+	border-color: white;
+	border-radius: 8px;
+	transition-duration: 0.4s;
+	font-weight: bold;
+	color: white;
+}
+
+.button:hover {
+	background-color: LightGray;
+	color: black;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 5px;
+}
+
+
