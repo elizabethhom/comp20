@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="xmlstyle.css"?>
+
+<SetList>
+	<Song>
+		<Artist>Japanese Breakfast</Artist>
+		<Title>Roadhead</Title>
+		<Genre>Indie</Genre>
+		<Year>2017</Year>
+	</Song>
+	<Song>
+		<Artist>AJ Mitchell</Artist>
+		<Title>Down In Flames</Title>
+		<Genre>Pop</Genre>
+		<Year>2019</Year>
+	</Song>
+	<Song>
+		<Artist>One Direction</Artist>
+		<Title>What Makes You Beautiful</Title>
+		<Genre>Pop</Genre>
+		<Year>2011</Year>
+	</Song>
+	<Song>
+		<Artist>Secondhand Serenade</Artist>
+		<Title>Fall For You</Title>
+		<Genre>Indie</Genre>
+		<Year>2008</Year>
+	</Song>
+	<Song>
+		<Artist>Eric Nam</Artist>
+		<Title>Congratulations</Title>
+		<Genre>Pop</Genre>
+		<Year>2019</Year>
+	</Song>
+	<Song>
+		<Artist>Lewis Capaldi</Artist>
+		<Title>Before You Go</Title>
+		<Genre>Indie</Genre>
+		<Year>2019</Year>
+	</Song>
+	<Song>
+		<Artist>Alec Benjamin</Artist>
+		<Title>Let Me Down Slowly</Title>
+		<Genre>Pop</Genre>
+		<Year>2018</Year>
+	</Song>
+	<Song>
+		<Artist>FINNEAS</Artist>
+		<Title>Let's Fall in Love for the Night</Title>
+		<Genre>Indie</Genre>
+		<Year>2019</Year>
+	</Song>
+	<Song>
+		<Artist>Coldplay</Artist>
+		<Title>Viva la Vida</Title>
+		<Genre>Pop</Genre>
+		<Year>2015</Year>
+	</Song>
+	<Song>
+		<Artist>Panic! At The Disco</Artist>
+		<Title>House of Memories</Title>
+		<Genre>Indie</Genre>
+		<Year>2016</Year>
+	</Song>
+</SetList>
