@@ -1,46 +1,46 @@
 @charset "UTF-8";
 
 SetList {
-	background-color: #ADD8E6;
-	font-family: Verdana;
-	padding-top: 10px;
+    background-color: #ADD8E6;
+    font-family: Verdana;
+    padding-top: 10px;
 }
 
 Song {
-	display: block;
-	text-align: center;
-	position: relative;
-	margin: 20px;
-	background-color: #F8F8FF;
-	color: black;
-	padding-top: 10px;
-	padding-bottom: 10px;
+    display: block;
+    text-align: center;
+    position: relative;
+    margin: 20px;
+    background-color: #F8F8FF;
+    color: black;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 Artist, Title, Genre, Year {
-	display: block;
-	font-family: Verdana;
-	color: #008B8B;
-	padding: 1px;
+    display: block;
+    font-family: Verdana;
+    color: #008B8B;
+    padding: 1px;
 }
 
 Title {
-	font-weight: bold;
-	font-size: 18px;
-	color: #008B8B;
+    font-weight: bold;
+    font-size: 18px;
+    color: #008B8B;
 }
 
 Artist {
-	font-style: italic;
+    font-style: italic;
 }
 
 heading {
-	text-align: center;
-	font-weight: bold;
-	font-size: 40px;
-	display: block;
-	background-color: #008B8B;
-	margin: 20px;
-	padding: 10px;
-	color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    display: block;
+    background-color: #008B8B;
+    margin: 20px;
+    padding: 10px;
+    color: white;
 }
