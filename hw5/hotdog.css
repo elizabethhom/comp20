@@ -1,0 +1,27 @@
+h1 {
+	color: red;
+}
+
+header, .row {
+	display: flex;
+}
+
+#title {
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+
+#order {
+	width: 50%;
+}
+
+.col {
+	flex: 1;
+	border: 1px solid black;
+	padding: 3px;
+}
+
+#elem {
+	text-align: center;
+}

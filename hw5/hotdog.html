@@ -1,66 +1,92 @@
 <!DOCTYPE html>
 
 <html>
-	<body onload="getOrder()">
+    <head>
+        <link rel="stylesheet" style="text/css" href="hotdog.css" />
+    </head>
+    <body onload="getOrder()">
 
-		<h1>Joe's Hotdog Stand!</h1>
+        <h1>Joe's Hotdog Stand!</h1>
 
-		<h2>Your Order:</h2>
+        <h2>Your Order:</h2>
 
-		<p id="order"></p>
-		<p id="discount"></p>
-		<p id="subtotal"></p>
-		<p id="tax"></p>
-		<p id="total"></p>
+        <!--<p id="order"></p>-->
+        <div id="order"></div>
+        <p id="discount"></p>
+        <p id="subtotal"></p>
+        <p id="tax"></p>
+        <p id="total"></p>
 
-		<script>
-			function getOrder() {
-				var hotdogs = prompt("How many hotdogs?");
-				var fries = prompt("How many fries?");
-				var sodas = prompt("How many sodas?");
+        <script>
+            function getOrder() {
+                var hotdogs = prompt("How many hotdogs?");
+                var fries = prompt("How many fries?");
+                var sodas = prompt("How many sodas?");
 
-				var hotdogTotal = hotdogs * 3.25;
-				var friesTotal = fries * 2;
-				var sodaTotal = sodas * 1.5;
+                var hotdogTotal = hotdogs * 3.25;
+                var friesTotal = fries * 2;
+                var sodaTotal = sodas * 1.5;
 
-				document.getElementById("order").innerHTML =
-				"- Hotdogs: " + hotdogs + " at $3.25 is " + hotdogTotal.toFixed(2) + "<br>" +
-				"- Fries: " + fries + " at $2.00 is " + friesTotal.toFixed(2) + "<br>" +
-				"- Sodas: " + sodas + " at $1.50 is " + sodaTotal.toFixed(2) + "<br>";
+                var HTML = "";
 
-				var subtotal = hotdogs * 3.25 + fries * 2 + sodas * 1.5;
+                HTML += "<header><div id=\"title\" class=\"col\">Item</div>";
 
-				checkDiscount(subtotal);
-			}
+                HTML += "<div id=\"title\" class=\"col\">Unit Price</div>";
+                HTML += "<div id=\"title\" class=\"col\">Number Ordered</div>";
+                HTML += "<div id=\"title\" class=\"col\">Item Subtotal</div></header>";
 
-			function checkDiscount(subtotal) {
-				if (subtotal > 20) {
-					document.getElementById("discount").innerHTML = "You qualified for our discount!<br>";
-					var discount = subtotal * 0.9;
-					document.getElementById("subtotal").innerHTML = "Subtotal: " + discount.toFixed(2);
-					applyTax(discount);
-				} else {
-					document.getElementById("subtotal").innerHTML = "Subtotal: " + subtotal.toFixed(2); 
-					applyTax(subtotal);
-				}
+                HTML += "<div id=\"elem\" class=\"row\"><div class=\"col\">Hotdog</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$3.25</div>";
+                HTML += "<div id=\"elem\" class=\"col\">" + hotdogs + "</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$" + hotdogTotal.toFixed(2) + "</div></div>";
 
-			}
+                HTML += "<div id=\"elem\" class=\"row\"><div class=\"col\">Fries</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$2.00</div>";
+                HTML += "<div id=\"elem\" class=\"col\">" + fries + "</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$" + friesTotal.toFixed(2) + "</div></div>";
 
-			function applyTax(subtotal) {
-				var tax = subtotal * 0.0625;
+                HTML += "<div id=\"elem\" class=\"row\"><div class=\"col\">Soda</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$1.50</div>";
+                HTML += "<div id=\"elem\" class=\"col\">" + sodas + "</div>";
+                HTML += "<div id=\"elem\" class=\"col\">$" + sodaTotal.toFixed(2) + "</div></div>";
 
-				document.getElementById("tax").innerHTML = "Meals tax: " + tax.toFixed(2);
-				calcTotal(subtotal, tax);
-			}
+                
+                document.getElementById("order").innerHTML = HTML;
 
-			function calcTotal(subtotal, tax) {
-				var total = subtotal + tax;
+                var subtotal = hotdogs * 3.25 + fries * 2 + sodas * 1.5;
 
-				document.getElementById("total").innerHTML = "Total: " + total.toFixed(2); 
-			}
+                checkDiscount(subtotal);
+            }
+
+            function checkDiscount(subtotal) {
+                if (subtotal > 20) {
+                    document.getElementById("discount").innerHTML = "You qualified for our discount!<br>";
+                    var discount = subtotal * 0.9;
+                    document.getElementById("subtotal").innerHTML = "Subtotal: " + discount.toFixed(2);
+
+                    applyTax(discount);
+                } else {
+                    document.getElementById("subtotal").innerHTML = "Subtotal: " + subtotal.toFixed(2); 
+                    applyTax(subtotal);
+                }
+
+            }
+
+            function applyTax(subtotal) {
+                var tax = subtotal * 0.0625;
+
+                document.getElementById("tax").innerHTML = "Meals tax: " + tax.toFixed(2);
+                calcTotal(subtotal, tax);
+            }
+
+            function calcTotal(subtotal, tax) {
+                var total = subtotal + tax;
+
+                document.getElementById("total").innerHTML = "Total: " + total.toFixed(2); 
+            }
 
 
-		</script>
-	</body>
+        </script>
+    </body>
 </html>
 
