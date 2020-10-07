@@ -10,12 +10,11 @@
 
         <h2>Your Order:</h2>
 
-        <!--<p id="order"></p>-->
         <div id="order"></div>
-        <p id="discount"></p>
+        <h4 id="discount"></h4>
         <p id="subtotal"></p>
         <p id="tax"></p>
-        <p id="total"></p>
+        <h3 id="total"></h3>
 
         <script>
             function getOrder() {
@@ -61,11 +60,11 @@
                 if (subtotal > 20) {
                     document.getElementById("discount").innerHTML = "You qualified for our discount!<br>";
                     var discount = subtotal * 0.9;
-                    document.getElementById("subtotal").innerHTML = "Subtotal: " + discount.toFixed(2);
+                    document.getElementById("subtotal").innerHTML = "Subtotal: $" + discount.toFixed(2);
 
                     applyTax(discount);
                 } else {
-                    document.getElementById("subtotal").innerHTML = "Subtotal: " + subtotal.toFixed(2); 
+                    document.getElementById("subtotal").innerHTML = "Subtotal: $" + subtotal.toFixed(2); 
                     applyTax(subtotal);
                 }
 
@@ -74,14 +73,14 @@
             function applyTax(subtotal) {
                 var tax = subtotal * 0.0625;
 
-                document.getElementById("tax").innerHTML = "Meals tax: " + tax.toFixed(2);
+                document.getElementById("tax").innerHTML = "Meals tax: $" + tax.toFixed(2);
                 calcTotal(subtotal, tax);
             }
 
             function calcTotal(subtotal, tax) {
                 var total = subtotal + tax;
 
-                document.getElementById("total").innerHTML = "Total: " + total.toFixed(2); 
+                document.getElementById("total").innerHTML = "Total: $" + total.toFixed(2); 
             }
 
 
