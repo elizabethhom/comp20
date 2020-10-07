@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+            h2 {
+                color: red;
+            }
+
+        </style>
+    </head>
+    <body onload="generateLotteryNums()">
+        <h2>Lottery Numbers: Quick Pick</h2>
+        <p id="quickPick"></p>
+        <p id="luckyBall"></p>
+
+        <p id="winNums"></p>
+        <p id="winLuckyBall"></p>
+
+        <h3 id="payout"></h3>
+
+    </body>
+
+    <script>
+        function generateLotteryNums() {
+            var lotteryNums = [];
+            var luckyBall = getRandomInt(18) + 1;
+
+            for (var i = 0; i < 5; i++) {
+                lotteryNums.push(getRandomInt(49));
+            }
+
+            lotteryNums.sort(function(a,b) {return a - b});
+
+            var HTML = "The quick pick numbers are: ";
+
+            for (var j = 0; j < lotteryNums.length; j++) {
+                HTML += lotteryNums[j] + " ";
+            }
+
+            winningNums(lotteryNums, luckyBall);
+
+            document.getElementById("quickPick").innerHTML = HTML;
+            document.getElementById("luckyBall").innerHTML = "The lucky ball number is " + luckyBall;
+
+        }
+
+        function winningNums(randomNums, randomLucky) {
+            var win = prompt("Enter the winning numbers separated by a space:", "7 17 29 35 45");
+            var winLucky = prompt("Enter lucky ball number", "17");
+
+            document.getElementById("winNums").innerHTML = "The winning numbers are: " + win;
+            document.getElementById("winLuckyBall").innerHTML = "The lucky ball number is " + winLucky;
+
+            var winNums = win.split(" ");
+
+            calculateWinnings(randomNums, randomLucky, winNums, winLucky);
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        function calculateWinnings(randomNums, randomLucky, winNums, winLucky) {
+            var numMatch = 0;
+            var luckyMatch = 0;
+            var winner = 0;
+
+            if (randomLucky == winLucky) {
+                luckyMatch = 1;
+                winner = 1;
+            }
+
+            for (var i = 0; i < randomNums.length; i++) {
+                for (var j = 0; j < winNums.length; j++) {
+                    if (randomNums[i] == winNums[j]) {
+                        numMatch++;
+                    }
+                }
+            }
+
+            var winHTML = "Congratulations! Your payout is: "; 
+            
+            if (numMatch == 5) {
+                if (luckyMatch == 1) {
+                    winHTML += "$7,000 a week for life!";
+                } else {
+                    winHTML += "$25,000 a year for life!";
+                }
+            } else if (numMatch == 4) {
+                if (luckyMatch == 1) {
+                    winHTML += "$5,000!";
+                } else {
+                    winHTML += "$200!";
+                }
+            } else if (numMatch == 3) {
+                if (luckyMatch == 1) {
+                    winHTML += "$150!";
+                } else {
+                    winHTML += "$20!";
+                }
+            } else if (numMatch == 2) {
+                if (luckyMatch == 1) {
+                    winHTML += "$25";
+                } else {
+                    winHTML += "$3!"
+                }
+            } else if (numMatch == 1) {
+                if (luckyMatch == 1) {
+                    winHTML += "$6!";
+                }
+            } else if (numMatch == 1) {
+                if (luckyMatch == 1) {
+                    winHTML += "$4!";
+                }
+            }
+
+            if (winner == 1 || numMatch > 1) {
+                console.log(winHTML);
+                document.getElementById("payout").innerHTML = winHTML;
+            } else {
+                document.getElementById("payout").innerHTML = "Sorry! Better luck next time."
+            }
+        }
+
+    </script>
+</html>
