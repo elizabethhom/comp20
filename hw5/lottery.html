@@ -3,12 +3,12 @@
 <html>
     <head>
         <style>
-            h2 {
-                color: red;
-            }
-
+            h2 { color: red; }
+            body { font-family: Verdana; }
         </style>
+        <title>Lottery Quick Pick!</title>
     </head>
+
     <body onload="generateLotteryNums()">
         <h2>Lottery Numbers: Quick Pick</h2>
         <p id="quickPick"></p>
@@ -18,7 +18,6 @@
         <p id="winLuckyBall"></p>
 
         <h3 id="payout"></h3>
-
     </body>
 
     <script>
@@ -122,6 +121,5 @@
                 document.getElementById("payout").innerHTML = "Sorry! Better luck next time."
             }
         }
-
     </script>
 </html>
