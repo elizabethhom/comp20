@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Amicable Numbers</title>
+		<style>
+			#amicableResult { color: #8B008B; font-weight: bold; }
+
+			.button {
+				background-color: #8B008B;
+				color: white;
+				border: 2px solid #BA55D3;
+				transition-duration: 0.4s;
+				border-radius: 6px;
+			}
+
+			.button:hover { background-color: #BA55D3; border: 2px solid #8B008B;}
+
+			body { font-family: "Arial", Helvetica, sans-serif; }
+
+		</style>
+	</head>
+
+	<body>
+		<h1>Amicable Numbers</h1>
+
+		<form>
+			<label for="numbers">Input two numbers:</label>
+			<input name="num1" type="number" id="num1" >
+			<input name="num2" type="number" id="num2" >
+			<input type="button" value="Submit" class="button" onclick="printNumbers();">
+		</form>
+
+		<div id="printNums"></div>
+
+		<div id="printArrayOrSum"></div>
+
+		<div id="amicableResult"></div>
+
+		<script>
+			function printNumbers() {
+				var num1 = document.getElementById("num1").value;
+				var num2 = document.getElementById("num2").value;
+				var HTML = "1st Number: " + num1 + "<br>2nd Number: " + num2;
+				document.getElementById("printNums").innerHTML = HTML;
+
+				// ** TESTING isFactor() **
+				// if (isFactor(4,2) == true) {
+				// 	alert("2 is a factor of 4");
+				// }
+				// if (isFactor(5,3) == false) {
+				// 	alert("3 is not a factor of 5");
+				// }
+
+				// ** TESTING showArray() and addArray() **
+				//var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+				// showArray(arr);
+				//document.getElementById("printArrayOrSum").innerHTML = addArray(arr);
+				// ^ expected value: 55
+
+				//** TESTING getFactors() **
+				// document.getElementById("printArrayOrSum").innerHTML = getFactors(10);
+				// ^ expected value: 1,2,5
+
+				var num1_factors = [];
+				var num2_factors = [];
+				var num1_sum = 0;
+				var num2_sum = 0;
+
+				num1_factors = getFactors(num1);
+				num2_factors = getFactors(num2);
+
+				num1_sum = addArray(num1_factors);
+				num2_sum = addArray(num2_factors);
+
+				if (num1_sum == num2 && num2_sum == num1) {
+					document.getElementById("amicableResult").innerHTML = "The two numbers are amicable!"
+				} else {
+					document.getElementById("amicableResult").innerHTML = "The two numbers are not amicable."
+				}
+ 
+			}
+
+			function isFactor(num, factor) {
+				if (num % factor == 0) {
+					return true;
+				}
+				return false;
+			}
+
+			function showArray(arr) {
+				var HTML = "";
+
+				for (var i = 0; i < arr.length; i++) {
+					HTML += arr[i] + " ";
+				}
+
+				document.getElementById("printArrayOrSum").innerHTML = HTML;
+			}
+
+			function addArray(arr) {
+				var sum = 0;
+				for (var i = 0; i < arr.length; i++) {
+					sum += arr[i];
+				}
+				return sum;
+			}
+
+			function getFactors(num) {
+				var factors = [];
+
+				for (var i = 1; i < num; i++) {
+					if (isFactor(num, i)) {
+						factors.push(i);
+					}
+				}
+				return factors;
+			}
+			
+		</script>
+
+	</body>
+</html>
