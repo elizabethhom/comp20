@@ -1,8 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+        <script src="http://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Jade Delight</title>
+        <link rel="stylesheet" style="text/css" href="jade_delight.css" />
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     </head>
 
 <body>
@@ -31,6 +34,7 @@
         t+= "</select>"; 
         return t;
     }
+
     </script>
 
     <h1>Jade Delight</h1>
@@ -65,6 +69,7 @@
               s += "<td>$<input type='text' name='cost'/></td></tr>";
           }
           document.writeln(s);
+
         </script>
     </table>
 
@@ -80,5 +85,223 @@
     <input type = "submit" value = "Submit Order" />
 
     </form>
+
+    <script>
+        $(document).ready(function() {
+            var costs = [0,0,0,0,0];
+            var curr = 0;
+            var pickup = 1;
+            var p_curr = 0;
+
+            $('[name="street"]').hide();
+            $('[name="city"]').hide();
+
+            $("p").each(function() {
+                if (p_curr == 2 || p_curr == 3) {
+                    $(this).hide();
+                }
+                p_curr++;
+            })
+            p_curr = 0;
+
+            $('[name="quan0"]').change(function() {
+                costs[0] = 4.50 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            $('[name="quan1"]').change(function() {
+                costs[1] = 6.25 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+
+            $('[name="quan2"]').change(function() {
+                costs[2] = 5.25 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+
+            $('[name="quan3"]').change(function() {
+                costs[3] = 6.50 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+
+            $('[name="quan4"]').change(function() {
+                costs[4] = 2.35 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            var p_curr = 0;
+            $('input:radio[name="p_or_d"]').change(function() {
+                if (this.checked && this.value == 'pickup') {
+                    pickup = 1;
+                    $('[name="street"]').hide();
+                    $('[name="city"]').hide();
+
+                    $("p").each(function() {
+                        if (p_curr == 2 || p_curr == 3) {
+                            $(this).hide();
+                        }
+                        p_curr++;
+                    })
+                    p_curr = 0;
+                } else {
+                    pickup = 0;
+                    $('[name="street"]').show();
+                    $('[name="city"]').show();
+
+                    $("p").each(function() {
+                        if (p_curr == 2 || p_curr == 3) {
+                            $(this).show();
+                        }
+                        p_curr++;
+                    })
+                    p_curr = 0;
+                }
+            })
+
+            $(":submit").click(function() {
+                validate(pickup, costs);
+            })
+
+        });
+
+        function updateSubtotal(costs) {
+            var subtotal = 0;
+            for (var i = 0; i < costs.length; i++) {
+                subtotal += costs[i];
+            }
+
+            $("#subtotal").val(subtotal.toFixed(2));
+            updateTax(subtotal);
+        }
+
+        function updateTax(subtotal) {
+            var tax = subtotal * 0.0625;
+
+            $("#tax").val(tax.toFixed(2));
+            updateTotal(subtotal, tax);
+        }
+
+        function updateTotal(subtotal, tax) {
+            var total = subtotal + tax;
+
+            $("#total").val(total.toFixed(2));
+        }
+
+        function validate(pickup, costs) {
+            var valid = 1;
+            var last = $('[name="lname"]').val();
+            if (last == "") {
+                alert("Please enter a valid last name for the order.");
+                valid = 0;
+            }
+
+            var phone = $('[name="phone"]').val();
+            if (phone > 9999999999 || phone < 1000000000 || phone == "") {
+                alert("Please enter a valid phone number for the order.");
+                valid = 0;
+            }
+            console.log(pickup);
+
+            if (pickup == 0) {
+                var street = $('[name="street"]').val();
+                if (street == "") {
+                    alert("Please enter a valid street to deliver your food to.");
+                    valid = 0;
+                }
+
+                var city = $('[name="city"]').val();
+                if (city == "") {
+                    alert("Please enter a valid city to deliver your food to.");
+                    valid = 0;
+                }
+            }
+
+            if (valid == 1) {
+                var dt = new Date();
+                var hours = dt.getHours();
+                var mins = dt.getMinutes();
+
+
+                if (pickup == 0) {
+                    mins += 30;
+                } else {
+                    mins += 15;
+                }
+
+                if (mins > 60) {
+                    hours++;
+                    if (hours == 24) {
+                        hours = 0;
+                    }
+                    mins = mins % 60;
+                    if (mins < 10) {
+                        mins = "0" + mins;
+                    }
+                }
+
+                thanksMsg(hours, mins, costs);
+            }
+        }
+
+        function thanksMsg(hours, mins, costs) {
+            var message = "Thank you for your order! You ordered: ";
+
+            var chop_suey = costs[0] / 4.50;
+            var pork = costs[1] / 6.25;
+            var lo_mein = costs[2] / 5.25;
+            var moo_shi = costs[3] / 6.50;
+            var fried_rice = costs[4] / 2.35;
+
+            message += chop_suey + " Chicken Chop Suey, " +
+                       pork + " Sweet and Sour Pork, " +
+                       lo_mein + " Shrimp Lo Mein, " +
+                       moo_shi + " Moo Shi Chicken, and " +
+                       fried_rice + " Fried Rice.";
+
+            message += " Your order will be ready at " + hours + ":" + mins + ".";
+
+            alert(message);
+        }
+
+    </script>
 </body>
 </html>
