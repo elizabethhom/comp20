@@ -93,6 +93,7 @@
             var pickup = 1;
             var p_curr = 0;
 
+            // Hides street and city immediately upon page loading
             $('[name="street"]').hide();
             $('[name="city"]').hide();
 
@@ -104,11 +105,11 @@
             })
             p_curr = 0;
 
+            // Calculates and updates subtotals for item 1, Chicken Chop Suey
             $('[name="quan0"]').change(function() {
                 costs[0] = 4.50 * parseInt(jQuery(this).val());
 
                 $('[name="cost"]').each(function() {
-
                     $(this).val(costs[curr].toFixed(2));
                     curr++;
                 })
@@ -117,6 +118,7 @@
                 updateSubtotal(costs);
             })
 
+            // Calculates and updates subtotals for item 2, Sweet & Sour Pork
             $('[name="quan1"]').change(function() {
                 costs[1] = 6.25 * parseInt(jQuery(this).val());
 
@@ -129,7 +131,7 @@
                 updateSubtotal(costs);
             })
 
-
+            // Calculates and updates subtotals for item 3, Shrimp Lo Mein
             $('[name="quan2"]').change(function() {
                 costs[2] = 5.25 * parseInt(jQuery(this).val());
 
@@ -142,7 +144,7 @@
                 updateSubtotal(costs);
             })
 
-
+            // Calculates and updates subtotals for item 4, Moo Shi Chicken
             $('[name="quan3"]').change(function() {
                 costs[3] = 6.50 * parseInt(jQuery(this).val());
 
@@ -155,7 +157,7 @@
                 updateSubtotal(costs);
             })
 
-
+            // Calculates and updates subtotals for item 5, Fried Rice
             $('[name="quan4"]').change(function() {
                 costs[4] = 2.35 * parseInt(jQuery(this).val());
 
@@ -168,6 +170,8 @@
                 updateSubtotal(costs);
             })
 
+            /* Hides or shows street and city depending on if the user selected
+               "pickup" or "delivery" */
             var p_curr = 0;
             $('input:radio[name="p_or_d"]').change(function() {
                 if (this.checked && this.value == 'pickup') {
@@ -197,12 +201,20 @@
                 }
             })
 
+            // Validates user input upon clicking submit button
             $(":submit").click(function() {
                 validate(pickup, costs);
             })
 
         });
 
+        /* updateSubtotal
+         * Purpose: Calculates subtotal of all items and quantities and
+         *          updates page
+         * Parameters: array of total costs for each of the 5 items
+         * Callback: Calls updateTax() to calculate tax amount based on
+         *           subtotal
+         */
         function updateSubtotal(costs) {
             var subtotal = 0;
             for (var i = 0; i < costs.length; i++) {
@@ -213,6 +225,11 @@
             updateTax(subtotal);
         }
 
+        /* updateTax
+         * Purpose: Calculates tax based on subtotal and updates page
+         * Parameters: Subtotal amount generated from updateSubtotal()
+         * Callback: Calls updateTotal() to calculate total order cost
+         */
         function updateTax(subtotal) {
             var tax = subtotal * 0.0625;
 
@@ -220,27 +237,43 @@
             updateTotal(subtotal, tax);
         }
 
+        /* updateTotal
+         * Purpose: Calculates total based on subtotal and tax for order
+         * Parameters: Subtotal and tax value
+         */
         function updateTotal(subtotal, tax) {
             var total = subtotal + tax;
 
             $("#total").val(total.toFixed(2));
         }
 
+        /* validate
+         * Purpose: Validates user's form input and prints relevant error
+         *          messages if applicable
+         * Parameters: Pickup - 1 if user selected pickup, 0 if user selected
+         *             delivery; Costs - array of total costs for the 5 items
+         * Callback: Calls thanksMsg() to print thank you message if there are
+         *           no validation issues
+         */
         function validate(pickup, costs) {
             var valid = 1;
             var last = $('[name="lname"]').val();
+
+            // If user did not enter last name, print error message
             if (last == "") {
                 alert("Please enter a valid last name for the order.");
                 valid = 0;
             }
 
+            // If user did not enter phonen number, print error message
             var phone = $('[name="phone"]').val();
             if (phone > 9999999999 || phone < 1000000000 || phone == "") {
                 alert("Please enter a valid phone number for the order.");
                 valid = 0;
             }
-            console.log(pickup);
 
+            // If user selected delivery and did not provide street or city,
+            // print error message
             if (pickup == 0) {
                 var street = $('[name="street"]').val();
                 if (street == "") {
@@ -255,11 +288,12 @@
                 }
             }
 
+            /* If user inputted valid form values, calculate time until food
+               is ready. If pickup, takes 15 minutes; if delivery, takes 30. */
             if (valid == 1) {
                 var dt = new Date();
                 var hours = dt.getHours();
                 var mins = dt.getMinutes();
-
 
                 if (pickup == 0) {
                     mins += 30;
@@ -267,6 +301,7 @@
                     mins += 15;
                 }
 
+                // Ensures time is correct format
                 if (mins > 60) {
                     hours++;
                     if (hours == 24) {
@@ -277,11 +312,16 @@
                         mins = "0" + mins;
                     }
                 }
-
                 thanksMsg(hours, mins, costs);
             }
         }
 
+        /* thanksMsg
+         * Purpose: Alerts user with a "thank you" message that includes the
+         *          user's order and time it will be ready at
+         * Parameters: Hours - hour that order will be ready; Mins - minutes
+         *             order will be ready; Costs - array of item costs
+         */
         function thanksMsg(hours, mins, costs) {
             var message = "Thank you for your order! You ordered: ";
 
