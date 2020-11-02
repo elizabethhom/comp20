@@ -3,75 +3,75 @@
 <html>
 
 <head>
-	<style>
-		body { font-family: Arial, Helvetica, sans-serif; text-align: center; }
-		h1 { background-color: #008B8B; padding: 5px; color: white; }
-		h3 { color: #20B2AA; }
-		.button { background-color: #008B8B; color: white; border: none; padding: 2px;
-				  padding-left: 7px; padding-right: 7px; border-radius: 5px;}
-		.button:hover { background-color: #ADD8E6; color: black; transition-duration: 0.4s; }
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; text-align: center; }
+        h1 { background-color: #008B8B; padding: 5px; color: white; }
+        h3 { color: #20B2AA; }
+        .button { background-color: #008B8B; color: white; border: none; padding: 2px;
+                  padding-left: 7px; padding-right: 7px; border-radius: 5px;}
+        .button:hover { background-color: #ADD8E6; color: black; transition-duration: 0.4s; }
 
-	</style>
-	<script src="set-list.js"></script>
-	<title>Set List</title>
+    </style>
+    <script src="set-list.js"></script>
+    <title>Set List</title>
 </head>
 
 <body>
-	<h1>Elizabeth's Cover Band Set List</h1>
+    <h1>Elizabeth's Cover Band Set List</h1>
 
-	<form onsubmit="return false">
-		<label for="genres">Filter by genre:</label>
-		<select id="genres" name="genres">
-			<option value="Indie">Indie</option>
-			<option value="Pop">Pop</option>
-			<option value="K-Pop">K-Pop</option>
-			<option value="Rock">Rock</option>
-		</select>
-		<input type="submit" class="button" value="Filter" onclick="filterSongs()">
-	</form>
+    <form onsubmit="return false">
+        <label for="genres">Filter by genre:</label>
+        <select id="genres" name="genres">
+            <option value="Indie">Indie</option>
+            <option value="Pop">Pop</option>
+            <option value="K-Pop">K-Pop</option>
+            <option value="Rock">Rock</option>
+        </select>
+        <input type="submit" class="button" value="Filter" onclick="filterSongs()">
+    </form>
 
-	<p id="songs"></p>
+    <p id="songs"></p>
 
-	<script>
+    <script>
 
-		var HTML = "";
-		var keys = Object.keys(setList[0]);
+        var HTML = "";
+        var keys = Object.keys(setList[0]);
 
-		function filterSongs() {
+        function filterSongs() {
 
-			var genreElem = document.getElementById("genres");
-			var selectedGenre = genreElem.options[genreElem.selectedIndex].text;
+            var genreElem = document.getElementById("genres");
+            var selectedGenre = genreElem.options[genreElem.selectedIndex].text;
 
-			for (var i = 0; i < setList.length; i++) {
-				if (genreMatch(selectedGenre, i) == 1) {
-					for (var j = 0; j < keys.length; j++) {
-						if (j == 0) {
-							HTML += "<h3>" + Object.values(setList[i])[1] + "</h3>";
-						} else if (j == 1) {
-							HTML += keys[0] + ": " + Object.values(setList[i])[0] + "<br>";
-						} else {
-							HTML += keys[j] + ": " + Object.values(setList[i])[j] + "<br>";
-						}
-					}
-				}
-			}
+            for (var i = 0; i < setList.length; i++) {
+                if (genreMatch(selectedGenre, i) == 1) {
+                    for (var j = 0; j < keys.length; j++) {
+                        if (j == 0) {
+                            HTML += "<h3>" + Object.values(setList[i])[1] + "</h3>";
+                        } else if (j == 1) {
+                            HTML += keys[0] + ": " + Object.values(setList[i])[0] + "<br>";
+                        } else {
+                            HTML += keys[j] + ": " + Object.values(setList[i])[j] + "<br>";
+                        }
+                    }
+                }
+            }
 
-			document.getElementById("songs").innerHTML = HTML;
-			HTML = "";
-		}
+            document.getElementById("songs").innerHTML = HTML;
+            HTML = "";
+        }
 
-		function genreMatch(selectedGenre, currSong) {
-			var numGenres = Object.values(setList[currSong])[2].length;
-			
-			for (var i = 0; i < numGenres; i++) {
-				if (selectedGenre == Object.values(setList[currSong])[2][i]) {
-					return 1;
-				}
-			}
-			return 0;
-		}
+        function genreMatch(selectedGenre, currSong) {
+            var numGenres = Object.values(setList[currSong])[2].length;
+            
+            for (var i = 0; i < numGenres; i++) {
+                if (selectedGenre == Object.values(setList[currSong])[2][i]) {
+                    return 1;
+                }
+            }
+            return 0;
+        }
 
-	</script>
+    </script>
 </body>
 
 </html>
