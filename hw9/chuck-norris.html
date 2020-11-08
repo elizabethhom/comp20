@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<script>
+			function getJoke() {
+				request = new XMLHttpRequest();
+
+				console.log("hehe");
+
+				request.open("GET", "https://api.chucknorris.io/jokes/random", true)
+
+				console.log("toot");
+
+				request.onreadystatechange = function() {
+					console.log("haha");
+
+					if (request.readyState == 4 && request.status == 200) {
+						console.log("received");
+						result = request.responseText;
+						var norrisInfo = JSON.parse(result);
+						console.log(norrisInfo.value);
+					}
+
+				}
+
+				request.send();
+
+			}
+
+
+// request.onreadystatechange = function() {
+// 				console.log("3 - readystatechange event fired.");
+ 
+// 				if (request.readyState == 4 && request.status == 200) {
+
+// 					// Step 5: wait for done + success
+// 					console.log("5 - response received");
+// 					result = request.responseText;
+// 					alert(result);
+// 					weather = JSON.parse(result);
+					
+// 					document.getElementById("data").innerHTML ="current temp in boston: " + weather["current"]["temp"]; 
+					
+// 				}
+// 				else if (request.readyState == 4 && request.status != 200) {
+
+// 					document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+
+// 				}
+
+// 				else if (request.readyState == 3) {
+
+// 					document.getElementById("data").innerHTML = "Too soon!  Try again";
+
+// 				}
+
+
+			
+					
+		</script>
+	</head>
+	<body onload="getJoke()">
+
+	</body>
+
+
+</html>

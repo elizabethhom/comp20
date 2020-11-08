@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style>
+			body { font-family: Arial, Helvetica, sans-serif; 
+			 	   background-image: url('pokemon-bg.jpg'); font-weight: bold; }
+			#pokemon { text-align: center; }
+			h2 { text-align: center; }
+		</style>
+
+		<script>
+			function getPokemon() {
+				request = new XMLHttpRequest();
+
+				request.open("GET", "https://pokeapi.co/api/v2/pokemon?limit=151", true)
+
+				request.onreadystatechange = function() {
+
+					if (request.readyState == 4 && request.status == 200) {
+						result = request.responseText;
+
+						var pokedex = JSON.parse(result);
+
+						var HTML = "";
+
+						for (var i = 0; i < pokedex.results.length; i++) {
+							HTML += (i + 1) + ". " + pokedex.results[i].name + "<br>";
+						}
+
+						document.getElementById("pokemon").innerHTML = HTML;
+					} else if (request.readyState == 4 && request.status != 200) {
+						document.getElementById("pokemon").innerHTML = "ERROR: Failed to load Pokémon.";
+					} else if (request.readyState == 3) {
+						document.getElementById("pokemon").innerHTML = "ERROR: Try again.";
+					}
+
+				}
+				request.send();
+			}
+	
+		</script>
+	</head>
+	<body onload="getPokemon()">
+		<h1>PokéAPI Fun!</h1>
+
+		<h2>API Description</h2>
+		<p>The API I decided to use is called PokéAPI, which is based off of the Pokémon video games developed by Game Freak published by Nintendo. It features companion monster-like creatures that can battle one another. PokéAPI is an extensive RESTful API that contains data about key aspects of the original video games, including Pokémon, their stats, berries, items, and more.</p>
+
+		<p>I found this API on https://pokeapi.co/.</p>
+
+		<h2>API Request Options Used</h2>
+
+		<p></p>
+
+		<h2>Applications of API</h2>
+		<p>1. A potential application of PokéAPI is a web application that serves as a database for Pokémon by region. This API makes it easy to access Pokémon by their original region; for example, I decided to only display Kanto Region pokémon. A developer could make a web application that sorts pokémon by their region which could be helpful information for Pokémon gameplayers.</p>
+		<p>2. Another potential application is for game design research. The Pokémon video game franchise is widely popular, and is used as a model for many other turn-based fighting video games. A game developer could use this extensive API as a reference databse regarding key aspects of the game (Pokémon statistics, game items, etc) as a helpful research tool in designing their own game.</p>
+
+		<h2>List of Kanto Pokémon</h2>
+		<p id="pokemon"></p>
+	</body>
+
+
+</html>
