@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Jade Delight</title>
+        <link rel="stylesheet" style="text/css" href="jade_delight.css" />
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    </head>
+
+<body>
+    <script language="javascript">
+
+    function MenuItem(name, cost)
+    {
+        this.name = name;
+        this.cost=cost;
+    }
+
+    menuItems = new Array(
+        new MenuItem("Chicken Chop Suey", 4.5),
+        new MenuItem("Sweet and Sour Pork", 6.25),
+        new MenuItem("Shrimp Lo Mein", 5.25),
+        new MenuItem("Moo Shi Chicken", 6.5),
+        new MenuItem("Fried Rice", 2.35)
+    );
+
+    function makeSelect(name, minRange, maxRange)
+    {
+        var t= "";
+        t = "<select name='" + name + "' size='1' id='" + name + "'>";
+        for (j=minRange; j<=maxRange; j++)
+           t += "<option>" + j + "</option>";
+        t+= "</select>"; 
+        return t;
+    }
+
+    </script>
+
+    <h1>Jade Delight</h1>
+    <form action="getOrder.php" method="get">
+
+    <p>First Name: <input type="text"  name='fname' /></p>
+    <p>Last Name*:  <input type="text"  name='lname' /></p>
+    <p>Street*: <input type="text"  name='street' /></p>
+    <p>City*: <input type="text"  name='city' /></p>
+    <p>Phone*: <input type="text"  name='phone' /></p>
+    <p>Email*: <input type="text" name="email" id="email"/></p>
+    <p>
+        <input type="radio"  name="p_or_d" value = "pickup" checked="checked"/>Pickup  
+        <input type="radio"  name='p_or_d' value = 'delivery'/>
+        Delivery
+    </p>
+    <table border="0" cellpadding="3">
+      <tr>
+        <th>Select Item</th>
+        <th>Item Name</th>
+        <th>Cost Each</th>
+        <th>Total Cost</th>
+      </tr>
+        <script language="javascript">
+
+          var s = "";
+          for (i=0; i< menuItems.length; i++)
+          {
+              s += "<tr><td>";
+              s += makeSelect("quan" + i, 0, 10);
+              s += "</td><td>" + menuItems[i].name + "</td>";
+              s += "<td> $ " + menuItems[i].cost.toFixed(2) + "</td>";
+              s += "<td>$<input type='text' name='cost'/></td></tr>";
+          }
+          document.writeln(s);
+
+        </script>
+    </table>
+
+    <p>Subtotal: 
+       $<input type="text"  name='subtotal' id="subtotal" />
+    </p>
+    <p>Mass tax 6.25%:
+      $ <input type="text"  name='tax' id="tax" />
+    </p>
+    <p>Total: $ <input type="text"  name='total' id="total" />
+    </p>
+
+    <input type="submit" name="submit" value="Submit Order" onclick="return validate()"/>
+
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            var costs = [0,0,0,0,0];
+            var curr = 0;
+            var pickup = 1;
+            var p_curr = 0;
+
+            // Hides street and city immediately upon page loading
+            $('[name="street"]').hide();
+            $('[name="city"]').hide();
+
+            $("p").each(function() {
+                if (p_curr == 2 || p_curr == 3) {
+                    $(this).hide();
+                }
+                p_curr++;
+            })
+            p_curr = 0;
+
+            // Calculates and updates subtotals for item 1, Chicken Chop Suey
+            $('[name="quan0"]').change(function() {
+                costs[0] = 4.50 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            // Calculates and updates subtotals for item 2, Sweet & Sour Pork
+            $('[name="quan1"]').change(function() {
+                costs[1] = 6.25 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            // Calculates and updates subtotals for item 3, Shrimp Lo Mein
+            $('[name="quan2"]').change(function() {
+                costs[2] = 5.25 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            // Calculates and updates subtotals for item 4, Moo Shi Chicken
+            $('[name="quan3"]').change(function() {
+                costs[3] = 6.50 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            // Calculates and updates subtotals for item 5, Fried Rice
+            $('[name="quan4"]').change(function() {
+                costs[4] = 2.35 * parseInt(jQuery(this).val());
+
+                $('[name="cost"]').each(function() {
+                    $(this).val(costs[curr].toFixed(2));
+                    curr++;
+                })
+                curr = 0;
+
+                updateSubtotal(costs);
+            })
+
+            /* Hides or shows street and city depending on if the user selected
+               "pickup" or "delivery" */
+            var p_curr = 0;
+            $('input:radio[name="p_or_d"]').change(function() {
+                if (this.checked && this.value == 'pickup') {
+                    pickup = 1;
+                    $('[name="street"]').hide();
+                    $('[name="city"]').hide();
+
+                    $("p").each(function() {
+                        if (p_curr == 2 || p_curr == 3) {
+                            $(this).hide();
+                        }
+                        p_curr++;
+                    })
+                    p_curr = 0;
+                } else {
+                    pickup = 0;
+                    $('[name="street"]').show();
+                    $('[name="city"]').show();
+
+                    $("p").each(function() {
+                        if (p_curr == 2 || p_curr == 3) {
+                            $(this).show();
+                        }
+                        p_curr++;
+                    })
+                    p_curr = 0;
+                }
+            })
+        });
+
+        /* updateSubtotal
+         * Purpose: Calculates subtotal of all items and quantities and
+         *          updates page
+         * Parameters: array of total costs for each of the 5 items
+         * Callback: Calls updateTax() to calculate tax amount based on
+         *           subtotal
+         */
+        function updateSubtotal(costs) {
+            var subtotal = 0;
+            for (var i = 0; i < costs.length; i++) {
+                subtotal += costs[i];
+            }
+
+            $("#subtotal").val(subtotal.toFixed(2));
+            updateTax(subtotal);
+        }
+
+        /* updateTax
+         * Purpose: Calculates tax based on subtotal and updates page
+         * Parameters: Subtotal amount generated from updateSubtotal()
+         * Callback: Calls updateTotal() to calculate total order cost
+         */
+        function updateTax(subtotal) {
+            var tax = subtotal * 0.0625;
+
+            $("#tax").val(tax.toFixed(2));
+            updateTotal(subtotal, tax);
+        }
+
+        /* updateTotal
+         * Purpose: Calculates total based on subtotal and tax for order
+         * Parameters: Subtotal and tax value
+         */
+        function updateTotal(subtotal, tax) {
+            var total = subtotal + tax;
+
+            $("#total").val(total.toFixed(2));
+        }
+
+        /* validate
+         * Purpose: Validates user's form input and prints relevant error
+         *          messages if applicable. Prevents user from submitting
+         *          if there is any invalid input.
+         */
+        function validate() {
+            var empty = true;
+            var item, itemCost;
+            var itemId = "quan";
+
+            // Checks for an empty order
+            for (var i = 0; i < 5; i++) {
+                itemId += i;
+                item = document.getElementById(itemId);
+                itemCost = item.options[item.selectedIndex].text;
+
+                if (itemCost != 0) {
+                    empty = false;
+                }
+                itemId = "quan";
+            }
+
+            if (empty == true) {
+                alert("Please enter your order before submitting.");
+                return false;
+            }
+
+            // Checks for valid last name
+            var last = $('[name="lname"]').val();
+            if (last == "") {
+                alert("Please enter a valid last name for the order.");
+                return false;
+            }
+
+            // Checks for valid phone number
+            var phone = $('[name="phone"]').val();
+            if (phone > 9999999999 || phone < 1000000000 || phone == "") {
+                alert("Please enter a valid phone number for the order.");
+                return false;
+            }
+
+            var email = $("#email").val();
+            if (email == "") {
+                alert("Please enter a valid email to receive order confirmation.");
+                return false;
+            }
+
+            var method = document.getElementsByName("p_or_d");
+
+            // Pickup chosen as receiving method. Checks for valid street, city
+            if (method[1].checked) {
+                var street = $('[name="street"]').val();
+                if (street == "") {
+                    alert("Please enter a valid street to deliver your food to.");
+                    return false;
+                }
+
+                var city = $('[name="city"]').val();
+                if (city == "") {
+                    alert("Please enter a valid city to deliver your food to.");
+                    return false;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

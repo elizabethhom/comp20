@@ -1,0 +1,45 @@
+body {
+    font-family: 'Poppins';
+    background-image: url('jade-delight-background.jpeg');
+    background-repeat: repeat;
+    color: white;
+    font-weight: bold;
+}
+
+table, th, td {
+    border: solid black 1px;
+    border-collapse: collapse;
+    padding: 5px;
+    background-color: white;
+    color: black;
+}
+
+th {
+    background-color: #FFDB4B;
+    color: black;
+    font-weight: bold;
+}
+
+h1 {
+    color: white;
+    font-weight: bold;
+}
+
+input[type=submit] {
+    background-color: #FFDB4B;
+    color: black;
+    font-family: 'Poppins';
+    font-weight: bold;
+    border: none;
+    padding: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
+    border-radius: 5px;
+    border: 2px solid #CCA300;
+}
+
+input[type=submit]:hover {
+    background-color: #CCA300;
+    transition-duration: 0.4s;
+    border: 2px solid #FFDB4B;
+}
