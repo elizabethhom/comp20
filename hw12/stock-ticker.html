@@ -21,7 +21,7 @@
 					if (rawFile.readyState == 4) {
 						if (rawFile.status == 200 || rawFile.status == 0) {
 							var fileText = rawFile.responseText;
-							fileText.replace(/,/g, '\n');
+							fileText.replace(/\n/g, ",");
 							var companyData = fileText.split(",");
 							console.log(companyData);
 
