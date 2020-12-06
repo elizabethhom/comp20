@@ -26,6 +26,20 @@
 							var companyData = fileText.split(",");
 							console.log(companyData);
 
+							var company = [];
+							var stock = [];
+
+							for (var i = 0; i < companyData.length; i++) {
+								if (i % 2 == 0) {
+									company.push_back(companyData[i]);
+								} else {
+									stock.push_back(companyData[i]);
+								}
+							}
+
+							console.log(company);
+							console.log(stock);
+
 						} 
 					}
 				}
