@@ -7,7 +7,7 @@
 
 	<body onload="getFile()">
 		<h1>Populating Data</h1>
-		<h2>Hehe</h2>
+		<h2>Hehe!!</h2>
 
 		<script>
 
@@ -22,7 +22,7 @@
 					if (rawFile.readyState == 4) {
 						if (rawFile.status == 200 || rawFile.status == 0) {
 							var fileText = rawFile.responseText;
-							fileText.replace(/\n/g, ",");
+							fileText = fileText.replace(/\n/g, ",");
 							var companyData = fileText.split(",");
 							console.log(companyData);
 
