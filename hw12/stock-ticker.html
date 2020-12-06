@@ -19,40 +19,15 @@
 				rawFile.onreadystatechange = function() {
 					if (rawFile.readyState == 4) {
 						if (rawFile.status == 200 || rawFile.status == 0) {
-							var allText = rawFile.responseText;
-							console.log(allText);
+							var fileText = rawFile.responseText;
+							var companyData = fileText.split(",");
+							console.log(companyData);
+
 						} 
 					}
 				}
 				rawFile.send(null);
 			}
 		</script>
-
-<!-- 		<script>
-			function getData() {
-				console.log("in here");
-				sendReq("companies-1.csv", after);
-			}
-
-			function sendReq(url, callbackFunction) {
-				var xhttp;
-				if (window.ActiveXObject) {
-					xhttp = new ActiveXobject("Microsoft.XMLHTTP");
-				} else if (window.XMLHttpRequest) {
-					xhttp = new XMLHttpRequest();
-				}
-
-				xhttp.onload = function() {
-					after(xhttp.responseText)
-				}
-				xhttp.open("GET", url, true);
-				xhttp.send();
-			}
-
-			function after(response) {
-				alert("HI!");
-			}
-
-		</script> -->
 	</body>
 </html>
