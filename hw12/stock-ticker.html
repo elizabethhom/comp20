@@ -2,49 +2,18 @@
 
 <html>
 	<head>
-		<title>Populating Data</title>
+		<title>Company StockTicker Database</title>
 	</head>
 
-	<body onload="getFile()">
-		<h1>Populating Data</h1>
-		<h2>Hehe!!</h2>
+	<body>
+		<h1>Company Stockticker Database</h1>
 
-		<script>
-
-			function getFile() {
-				readTextFile("companies-1.csv");
-			}
-
-			function readTextFile(file) {
-				var rawFile = new XMLHttpRequest();
-				rawFile.open("GET", file, false);
-				rawFile.onreadystatechange = function() {
-					if (rawFile.readyState == 4) {
-						if (rawFile.status == 200 || rawFile.status == 0) {
-							var fileText = rawFile.responseText;
-							fileText = fileText.replace(/\n/g, ",");
-							var companyData = fileText.split(",");
-							console.log(companyData);
-
-							var company = [];
-							var stock = [];
-
-							for (var i = 0; i < companyData.length; i++) {
-								if (i % 2 == 0) {
-									company.push(companyData[i]);
-								} else {
-									stock.push(companyData[i]);
-								}
-							}
-
-							console.log(company);
-							console.log(stock);
-
-						} 
-					}
-				}
-				rawFile.send(null);
-			}
-		</script>
+		<!-- Form to obtain user info (company name or stock ticker) -->
+		<h4>Please enter either a company name or company stock ticker to.</h4>
+		<form action="http://localhost:8080" method='get'>
+			Company Name: <input type='text' name='companyName'><br />
+			Company Stockticker: <input type='text' name='stockticker'><br />
+			<input type='submit' value="Submit">
+		</form>
 	</body>
 </html>
